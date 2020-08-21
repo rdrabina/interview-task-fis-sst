@@ -21,8 +21,8 @@ public class BrandController {
         this.brandService = brandService;
     }
 
-    @GetMapping
-    public ResponseEntity<Brand> getBrand(@PathVariable Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<Brand> getBrand(@PathVariable("id") Long id) {
         return new ResponseEntity<>(
                 brandService.getBrandById(id),
                 HttpStatus.OK

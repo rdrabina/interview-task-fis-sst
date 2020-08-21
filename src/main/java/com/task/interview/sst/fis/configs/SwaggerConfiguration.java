@@ -39,7 +39,7 @@ public class SwaggerConfiguration extends WebMvcConfigurationSupport {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("API for Automotive Store App")
-                .contact(new Contact("radek", "", "radekdrabina@o2.pl"))
+                .contact(new Contact("rdrabina", "", "radekdrabina@o2.pl"))
                 .description("This API gives the functionality of Automotive Store App.")
                 .version("1.0")
                 .build();

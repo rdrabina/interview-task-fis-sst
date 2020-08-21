@@ -5,6 +5,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "car_part")
@@ -20,5 +23,26 @@ public class CarPart {
     @ManyToOne
     @JoinColumn(name = "model_id")
     private Model model;
+
+    private Date productionStartDate;
+
+    private Date productionEndDate;
+
+    @Embedded
+    private CarPartDetails carPartDetails;
+
+    @OneToMany(
+            mappedBy = "car_part",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<SalesArgument> salesArguments;
+
+    @OneToMany(
+            mappedBy = "car_part",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<ServiceAction> serviceActions;
 
 }
