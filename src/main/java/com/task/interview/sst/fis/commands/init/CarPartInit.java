@@ -7,7 +7,6 @@ import com.task.interview.sst.fis.entities.SalesArgument;
 import com.task.interview.sst.fis.repositories.CarPartRepository;
 import com.task.interview.sst.fis.repositories.ModelRepository;
 import com.task.interview.sst.fis.repositories.SalesArgumentRepository;
-import com.task.interview.sst.fis.utils.GenericUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
