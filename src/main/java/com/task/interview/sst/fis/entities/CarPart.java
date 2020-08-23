@@ -5,9 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "car_part")
@@ -20,29 +19,40 @@ public class CarPart {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "model_id")
-    private Model model;
-
-    private Date productionStartDate;
-
-    private Date productionEndDate;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "car_part_model",
+            joinColumns = @JoinColumn(name = "car_part_id"),
+            inverseJoinColumns = @JoinColumn(name = "model_id")
+    )
+    private Set<Model> models;
 
     @Embedded
     private CarPartDetails carPartDetails;
 
-    @OneToMany(
-            mappedBy = "car_part",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "car_part_sales_argument",
+            joinColumns = @JoinColumn(name = "car_part_id"),
+            inverseJoinColumns = @JoinColumn(name = "sales_argument_id")
     )
-    private List<SalesArgument> salesArguments;
+    private Set<SalesArgument> salesArguments;
 
     @OneToMany(
-            mappedBy = "car_part",
+            mappedBy = "carPart",
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
     private List<ServiceAction> serviceActions;
+
+    public void setModels(CarPart carPart, Set<Model> models) {
+        carPart.setModels(models);
+        models.forEach(model -> model.getCarParts().add(carPart));
+    }
+
+    public void setSalesArguments(CarPart carPart, Set<SalesArgument> salesArguments) {
+        carPart.setSalesArguments(salesArguments);
+        salesArguments.forEach(salesArgument -> salesArgument.getCarParts().add(carPart));
+    }
 
 }
