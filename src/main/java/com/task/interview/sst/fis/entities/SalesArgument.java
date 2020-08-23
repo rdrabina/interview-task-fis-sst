@@ -5,8 +5,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
+@Table(name = "sales_argument")
 @NoArgsConstructor
 @Getter
 @Setter
@@ -18,8 +20,7 @@ public class SalesArgument {
 
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "car_part_id")
-    private CarPart carPart;
+    @ManyToMany(mappedBy = "salesArguments")
+    private Set<CarPart> carParts;
 
 }
