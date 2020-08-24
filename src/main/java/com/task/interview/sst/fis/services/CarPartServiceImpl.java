@@ -73,6 +73,7 @@ public class CarPartServiceImpl implements CarPartService {
     }
 
     @Override
+    @Transactional
     public CarPartAvailabilityDto checkAvailabilityAndShipmentDate(Long id) {
         return carPartRepository.findById(id)
                 .map(this::createCarPartAvailabilityDto)

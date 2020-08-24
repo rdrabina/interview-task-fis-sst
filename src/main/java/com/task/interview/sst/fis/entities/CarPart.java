@@ -55,4 +55,8 @@ public class CarPart {
         salesArguments.forEach(salesArgument -> salesArgument.getCarParts().add(carPart));
     }
 
+    public String getCarPartName() {
+        return this.getCarPartDetails().getName();
+    }
+
 }

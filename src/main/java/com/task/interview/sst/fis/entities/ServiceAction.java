@@ -65,4 +65,12 @@ public class ServiceAction {
         carPart.getServiceActions().add(serviceAction);
     }
 
+    public String getServiceActionNameValue() {
+        return this.getServiceActionName().getValue();
+    }
+
+    public String getCarPartName() {
+        return this.getCarPart().getCarPartName();
+    }
+
 }
