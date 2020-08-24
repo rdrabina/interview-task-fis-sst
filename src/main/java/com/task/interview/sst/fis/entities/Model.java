@@ -58,7 +58,7 @@ public class Model {
 
     public void setBrand(Model model, Brand brand) {
         model.setBrand(brand);
-        brand.getModelDetails().add(model);
+        brand.getModels().add(model);
     }
 
     public void setProductionDate(Model model, Year year, Consumer<Year> consumer, Supplier<List<Model>> supplier) {

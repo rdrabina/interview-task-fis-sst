@@ -4,6 +4,9 @@ import com.task.interview.sst.fis.entities.Brand;
 import com.task.interview.sst.fis.repositories.BrandRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class BrandServiceImpl implements BrandService {
@@ -19,6 +22,12 @@ public class BrandServiceImpl implements BrandService {
     public Brand getBrandById(Long id) {
         //todo
         return brandRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    @Transactional
+    public List<Brand> findAll() {
+        return brandRepository.findAll();
     }
 
 }

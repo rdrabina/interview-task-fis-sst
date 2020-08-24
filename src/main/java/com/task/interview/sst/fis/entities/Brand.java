@@ -25,6 +25,6 @@ public class Brand {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private List<Model> modelDetails;
+    private List<Model> models;
 
 }

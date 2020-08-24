@@ -39,7 +39,7 @@ public class BrandInit implements EntityInit {
     private Brand createBrand(CarBrand carBrand) {
         Brand brand = new Brand();
         brand.setName(carBrand.name());
-        brand.setModelDetails(new ArrayList<>());
+        brand.setModels(new ArrayList<>());
 
         return brand;
     }
