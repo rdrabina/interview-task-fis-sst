@@ -66,4 +66,8 @@ public class Model {
         supplier.get().add(model);
     }
 
+    public String getBrandName() {
+        return this.getBrand().getName();
+    }
+
 }

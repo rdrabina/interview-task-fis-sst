@@ -25,10 +25,19 @@ public class CarPartController {
         this.carPartService = carPartService;
     }
 
-    @GetMapping("/grouped-by-model-and-brand")
-    public ResponseEntity<Map<String, Map<String, Set<CarPartDto>>>> getAllGroupedByModelAndBrand() {
+    @GetMapping("/grouped-by-brand-and-model")
+    public ResponseEntity<Map<String, Map<String, Set<CarPartDto>>>> getAllGroupedByBrandAndModel() {
         return new ResponseEntity<>(
-                carPartService.getAllGroupedByModelAndBrand(),
+                carPartService.getAllGroupedByBrandAndModel(),
+                HttpStatus.OK
+        );
+    }
+
+    @GetMapping("/grouped-by-brand-and-model/{car-part-name-description-filter}")
+    public ResponseEntity<Map<String, Map<String, Set<CarPartDto>>>> getAllGroupedByBrandAndModelWithFilter(
+            @PathVariable("car-part-name-description-filter") String carPartNameDescriptionFilter) {
+        return new ResponseEntity<>(
+                carPartService.getAllGroupedByBrandAndModelWithFilter(carPartNameDescriptionFilter),
                 HttpStatus.OK
         );
     }
