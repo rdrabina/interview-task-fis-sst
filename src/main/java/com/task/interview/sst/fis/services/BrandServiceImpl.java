@@ -1,5 +1,6 @@
 package com.task.interview.sst.fis.services;
 
+import com.task.interview.sst.fis.annotations.Logger;
 import com.task.interview.sst.fis.dtos.BrandModelCarPartDto;
 import com.task.interview.sst.fis.dtos.CarPartDto;
 import com.task.interview.sst.fis.entities.Brand;
@@ -27,6 +28,7 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     @Transactional
+    @Logger
     public Map<String, Map<String, Set<CarPartDto>>> getBrandByNameWithModelsAndCarParts(String name) {
         return brandRepository.findAllByName(name)
                 .stream()

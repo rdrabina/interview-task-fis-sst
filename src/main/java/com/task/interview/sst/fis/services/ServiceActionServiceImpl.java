@@ -1,5 +1,6 @@
 package com.task.interview.sst.fis.services;
 
+import com.task.interview.sst.fis.annotations.Logger;
 import com.task.interview.sst.fis.dtos.ServiceActionDto;
 import com.task.interview.sst.fis.entities.ServiceAction;
 import com.task.interview.sst.fis.repositories.ServiceActionRepository;
@@ -23,6 +24,7 @@ public class ServiceActionServiceImpl implements ServiceActionService {
 
     @Override
     @Transactional
+    @Logger
     public List<ServiceActionDto> findAllBetweenDates(Date startDate, Date endDate) {
         return serviceActionRepository.findAllByStartDateBetween(startDate, endDate)
                 .stream()
@@ -36,6 +38,7 @@ public class ServiceActionServiceImpl implements ServiceActionService {
 
     @Override
     @Transactional
+    @Logger
     public ServiceAction save(ServiceAction serviceAction) {
         return serviceActionRepository.save(serviceAction);
     }

@@ -1,5 +1,6 @@
 package com.task.interview.sst.fis.services;
 
+import com.task.interview.sst.fis.annotations.Logger;
 import com.task.interview.sst.fis.dtos.BrandModelCarPartDto;
 import com.task.interview.sst.fis.dtos.CarPartAvailabilityDto;
 import com.task.interview.sst.fis.dtos.CarPartDto;
@@ -32,6 +33,7 @@ public class CarPartServiceImpl implements CarPartService {
 
     @Override
     @Transactional
+    @Logger
     public Map<String, Map<String, Set<CarPartDto>>> getAllGroupedByBrandAndModel() {
         return groupCarPartsByBrandAndModel(carPartRepository.findAll());
     }
@@ -66,6 +68,7 @@ public class CarPartServiceImpl implements CarPartService {
 
     @Override
     @Transactional
+    @Logger
     public Map<String, Map<String, Set<CarPartDto>>> getAllGroupedByBrandAndModelWithFilter(String carPartNameDescriptionFilter) {
         return groupCarPartsByBrandAndModel(
                 carPartRepository.findAllByCarPartDetailsNameContainingIgnoreCaseOrCarPartDetailsDescriptionContainingIgnoreCase(
@@ -76,6 +79,7 @@ public class CarPartServiceImpl implements CarPartService {
 
     @Override
     @Transactional
+    @Logger
     public CarPartAvailabilityDto checkAvailabilityAndShipmentDate(Long id) {
         return carPartRepository.findById(id)
                 .map(this::createCarPartAvailabilityDto)
@@ -99,12 +103,14 @@ public class CarPartServiceImpl implements CarPartService {
 
     @Override
     @Transactional
+    @Logger
     public int modifyCarPart(Long id, CarPartDto carPartDto) {
         return carPartRepository.modifyCarPartDescription(carPartDto.getDescription(), id);
     }
 
     @Override
     @Transactional
+    @Logger
     public void addServiceAction(Long id, ServiceActionDto serviceActionDto) {
         CarPart carPart = carPartRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
         ServiceActionName serviceActionName = createServiceActionName(serviceActionDto);
@@ -140,6 +146,7 @@ public class CarPartServiceImpl implements CarPartService {
 
     @Override
     @Transactional
+    @Logger
     public int deleteSalesArguments(Long id) {
         CarPart carPart = carPartRepository.findById(id)
                 .orElseThrow(ResourceNotFoundException::new);
