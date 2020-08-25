@@ -48,18 +48,10 @@ public class CarPartServiceImpl implements CarPartService {
     }
 
     private BrandModelCarPartDto createBrandModelCarPartDto(CarPart carPart, Model model) {
-        return new BrandModelCarPartDto(model.getBrandName(), model.getName(), createCarPartDto(carPart));
-    }
-
-    private CarPartDto createCarPartDto(CarPart carPart) {
-        CarPartDetails carPartDetails = carPart.getCarPartDetails();
-
-        return CarPartDto.builder()
-                .name(carPartDetails.getName())
-                .description(carPartDetails.getDescription())
-                .price(carPartDetails.getPrice())
-                .onStock(carPartDetails.isOnStock())
-                .shipmentWithinDays(carPartDetails.getShipmentWithinDays())
+        return BrandModelCarPartDto.builder()
+                .brand(model.getBrandName())
+                .model(model.getName())
+                .carPartDto(CarPartDto.createCarPartDto(carPart))
                 .build();
     }
 
