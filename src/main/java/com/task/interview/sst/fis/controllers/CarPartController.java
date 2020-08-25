@@ -2,14 +2,12 @@ package com.task.interview.sst.fis.controllers;
 
 import com.task.interview.sst.fis.dtos.CarPartAvailabilityDto;
 import com.task.interview.sst.fis.dtos.CarPartDto;
+import com.task.interview.sst.fis.dtos.ServiceActionDto;
 import com.task.interview.sst.fis.services.CarPartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 import java.util.Set;
@@ -46,6 +44,31 @@ public class CarPartController {
     public ResponseEntity<CarPartAvailabilityDto> checkAvailability(@PathVariable(name = "id") long id) {
         return new ResponseEntity<>(
                 carPartService.checkAvailabilityAndShipmentDate(id),
+                HttpStatus.OK
+        );
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Integer> modifyCarPart(@PathVariable("id") long id,
+                                                 @RequestBody CarPartDto carPartDto) {
+        return new ResponseEntity<>(
+                carPartService.modifyCarPart(id, carPartDto),
+                HttpStatus.OK
+        );
+    }
+
+    @PostMapping("/{id}/service-actions")
+    public ResponseEntity<Void> addServiceAction(@PathVariable("id") long id,
+                                                 @RequestBody ServiceActionDto serviceActionDto) {
+        carPartService.addServiceAction(id, serviceActionDto);
+
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/{id}/sales-arguments")
+    public ResponseEntity<Integer> deleteSalesArguments(@PathVariable("id") long id) {
+        return new ResponseEntity<>(
+                carPartService.deleteSalesArguments(id),
                 HttpStatus.OK
         );
     }

@@ -19,7 +19,7 @@ import static com.task.interview.sst.fis.utils.DateUtils.generateDateBetween;
 import static com.task.interview.sst.fis.utils.GenericUtils.getRandomObjectFromList;
 
 @Component
-public class ServiceActionInit implements EntityInit {
+public class ServiceActionInit implements EntityInitCommand {
 
     private static final int SERVICE_ACTION_AMOUNT = 50;
     private static final Date START_DATE;

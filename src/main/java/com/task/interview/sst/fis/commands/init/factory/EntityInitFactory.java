@@ -1,6 +1,6 @@
 package com.task.interview.sst.fis.commands.init.factory;
 
-import com.task.interview.sst.fis.commands.init.EntityInit;
+import com.task.interview.sst.fis.commands.init.EntityInitCommand;
 import com.task.interview.sst.fis.commands.init.enums.EntityInitStep;
 import com.task.interview.sst.fis.exceptions.EntityInitStepNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,24 +16,24 @@ import static com.task.interview.sst.fis.commands.init.enums.EntityInitStep.*;
 @Component
 public class EntityInitFactory {
 
-    private Map<EntityInitStep, EntityInit> entityInits;
+    private Map<EntityInitStep, EntityInitCommand> entityInits;
 
-    private final EntityInit brandInit;
-    private final EntityInit modelInit;
-    private final EntityInit yearInit;
-    private final EntityInit serviceActionNameInit;
-    private final EntityInit serviceActionInit;
-    private final EntityInit salesArgumentInit;
-    private final EntityInit carPartInit;
+    private final EntityInitCommand brandInit;
+    private final EntityInitCommand modelInit;
+    private final EntityInitCommand yearInit;
+    private final EntityInitCommand serviceActionNameInit;
+    private final EntityInitCommand serviceActionInit;
+    private final EntityInitCommand salesArgumentInit;
+    private final EntityInitCommand carPartInit;
 
     @Autowired
-    public EntityInitFactory(@Qualifier("brandInit") EntityInit brandInit,
-                             @Qualifier("modelInit") EntityInit modelInit,
-                             @Qualifier("yearInit") EntityInit yearInit,
-                             @Qualifier("serviceActionNameInit") EntityInit serviceActionNameInit,
-                             @Qualifier("serviceActionInit") EntityInit serviceActionInit,
-                             @Qualifier("salesArgumentInit") EntityInit salesArgumentInit,
-                             @Qualifier("carPartInit") EntityInit carPartInit) {
+    public EntityInitFactory(@Qualifier("brandInit") EntityInitCommand brandInit,
+                             @Qualifier("modelInit") EntityInitCommand modelInit,
+                             @Qualifier("yearInit") EntityInitCommand yearInit,
+                             @Qualifier("serviceActionNameInit") EntityInitCommand serviceActionNameInit,
+                             @Qualifier("serviceActionInit") EntityInitCommand serviceActionInit,
+                             @Qualifier("salesArgumentInit") EntityInitCommand salesArgumentInit,
+                             @Qualifier("carPartInit") EntityInitCommand carPartInit) {
         this.brandInit = brandInit;
         this.modelInit = modelInit;
         this.yearInit = yearInit;
@@ -55,8 +55,9 @@ public class EntityInitFactory {
         entityInits.put(CAR_PART_INIT, carPartInit);
     }
 
-    public EntityInit resolve(EntityInitStep entityInitStep) {
-        return Optional.ofNullable(entityInits.get(entityInitStep)).orElseThrow(EntityInitStepNotFoundException::new);
+    public EntityInitCommand resolve(EntityInitStep entityInitStep) {
+        return Optional.ofNullable(entityInits.get(entityInitStep))
+                .orElseThrow(EntityInitStepNotFoundException::new);
     }
 
 }

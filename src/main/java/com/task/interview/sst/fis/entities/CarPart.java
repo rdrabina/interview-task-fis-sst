@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -19,7 +20,7 @@ public class CarPart {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "car_part_model",
             joinColumns = @JoinColumn(name = "car_part_id"),
@@ -30,7 +31,7 @@ public class CarPart {
     @Embedded
     private CarPartDetails carPartDetails;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "car_part_sales_argument",
             joinColumns = @JoinColumn(name = "car_part_id"),
@@ -57,6 +58,15 @@ public class CarPart {
 
     public String getCarPartName() {
         return this.getCarPartDetails().getName();
+    }
+
+    public int removeAllSalesArguments() {
+        Set<SalesArgument> salesArguments = this.getSalesArguments();
+        int size = salesArguments.size();
+        this.salesArguments = new HashSet<>();
+        salesArguments.forEach(salesArgument -> salesArgument.removeCarPart(this));
+
+        return size;
     }
 
 }

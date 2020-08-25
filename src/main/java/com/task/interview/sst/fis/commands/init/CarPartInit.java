@@ -25,7 +25,7 @@ import static com.task.interview.sst.fis.utils.GenericUtils.generateRandomSubset
 import static com.task.interview.sst.fis.utils.GenericUtils.getRandomObjectFromList;
 
 @Component
-public class CarPartInit implements EntityInit {
+public class CarPartInit implements EntityInitCommand {
 
     private static final int CAR_PARTS_AMOUNT = 20;
     private static final int MODELS_LIMIT = 4;

@@ -2,13 +2,15 @@ package com.task.interview.sst.fis.dtos;
 
 import com.task.interview.sst.fis.entities.CarPart;
 import com.task.interview.sst.fis.entities.CarPartDetails;
-import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 
-@Builder
 @Getter
+@NoArgsConstructor
+@Setter
 public class CarPartDto {
 
     private String name;
@@ -20,13 +22,14 @@ public class CarPartDto {
     public static CarPartDto createCarPartDto(CarPart carPart) {
         CarPartDetails carPartDetails = carPart.getCarPartDetails();
 
-        return CarPartDto.builder()
-                .name(carPartDetails.getName())
-                .description(carPartDetails.getDescription())
-                .price(carPartDetails.getPrice())
-                .onStock(carPartDetails.isOnStock())
-                .shipmentWithinDays(carPartDetails.getShipmentWithinDays())
-                .build();
+        CarPartDto carPartDto = new CarPartDto();
+        carPartDto.setName(carPartDetails.getName());
+        carPartDto.setDescription(carPartDetails.getDescription());
+        carPartDto.setPrice(carPartDetails.getPrice());
+        carPartDto.setOnStock(carPartDetails.isOnStock());
+        carPartDto.setShipmentWithinDays(carPartDetails.getShipmentWithinDays());
+
+        return carPartDto;
     }
 
 }

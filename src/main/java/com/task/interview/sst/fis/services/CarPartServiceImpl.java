@@ -3,9 +3,8 @@ package com.task.interview.sst.fis.services;
 import com.task.interview.sst.fis.dtos.BrandModelCarPartDto;
 import com.task.interview.sst.fis.dtos.CarPartAvailabilityDto;
 import com.task.interview.sst.fis.dtos.CarPartDto;
-import com.task.interview.sst.fis.entities.CarPart;
-import com.task.interview.sst.fis.entities.CarPartDetails;
-import com.task.interview.sst.fis.entities.Model;
+import com.task.interview.sst.fis.dtos.ServiceActionDto;
+import com.task.interview.sst.fis.entities.*;
 import com.task.interview.sst.fis.exceptions.ResourceNotFoundException;
 import com.task.interview.sst.fis.repositories.CarPartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +18,16 @@ import java.util.stream.Collectors;
 public class CarPartServiceImpl implements CarPartService {
 
     private final CarPartRepository carPartRepository;
+    private final ServiceActionService serviceActionService;
+    private final ServiceActionNameService serviceActionNameService;
 
     @Autowired
-    public CarPartServiceImpl(CarPartRepository carPartRepository) {
+    public CarPartServiceImpl(CarPartRepository carPartRepository,
+                              ServiceActionService serviceActionService,
+                              ServiceActionNameService serviceActionNameService) {
         this.carPartRepository = carPartRepository;
+        this.serviceActionService = serviceActionService;
+        this.serviceActionNameService = serviceActionNameService;
     }
 
     @Override
@@ -35,9 +40,13 @@ public class CarPartServiceImpl implements CarPartService {
         return carParts.stream()
                 .map(this::createBrandModelCarPartDtos)
                 .flatMap(Collection::stream)
-                .collect(Collectors.groupingBy(BrandModelCarPartDto::getBrand,
-                        Collectors.groupingBy(BrandModelCarPartDto::getModel,
-                                Collectors.mapping(BrandModelCarPartDto::getCarPartDto, Collectors.toSet()))));
+                .collect(
+                        Collectors.groupingBy(BrandModelCarPartDto::getBrand,
+                                Collectors.groupingBy(BrandModelCarPartDto::getModel,
+                                        Collectors.mapping(BrandModelCarPartDto::getCarPartDto, Collectors.toSet())
+                                )
+                        )
+                );
     }
 
     private List<BrandModelCarPartDto> createBrandModelCarPartDtos(CarPart carPart) {
@@ -86,6 +95,58 @@ public class CarPartServiceImpl implements CarPartService {
         calendar.add(Calendar.DATE, carPartDetails.getShipmentWithinDays());
 
         return calendar.getTime();
+    }
+
+    @Override
+    @Transactional
+    public int modifyCarPart(Long id, CarPartDto carPartDto) {
+        return carPartRepository.modifyCarPartDescription(carPartDto.getDescription(), id);
+    }
+
+    @Override
+    @Transactional
+    public void addServiceAction(Long id, ServiceActionDto serviceActionDto) {
+        CarPart carPart = carPartRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
+        ServiceActionName serviceActionName = createServiceActionName(serviceActionDto);
+        ServiceAction serviceAction = createServiceAction(carPart, serviceActionName, serviceActionDto);
+
+        save(carPart, serviceAction, serviceActionName);
+    }
+
+    private ServiceActionName createServiceActionName(ServiceActionDto serviceActionDto) {
+        ServiceActionName serviceActionName = new ServiceActionName();
+        serviceActionName.setValue(serviceActionDto.getName());
+        serviceActionName.setServiceActions(new ArrayList<>());
+
+        return serviceActionName;
+    }
+
+    private ServiceAction createServiceAction(CarPart carPart, ServiceActionName serviceActionName,
+                                              ServiceActionDto serviceActionDto) {
+        ServiceAction serviceAction = new ServiceAction();
+        serviceAction.setServiceActionName(serviceAction, serviceActionName);
+        serviceAction.setCarPart(serviceAction, carPart);
+        serviceAction.setStartDate(serviceActionDto.getStartDate());
+        serviceAction.setEndDate(serviceActionDto.getEndDate());
+
+        return serviceAction;
+    }
+
+    private void save(CarPart carPart, ServiceAction serviceAction, ServiceActionName serviceActionName) {
+        serviceActionNameService.save(serviceActionName);
+        serviceActionService.save(serviceAction);
+        carPartRepository.save(carPart);
+    }
+
+    @Override
+    @Transactional
+    public int deleteSalesArguments(Long id) {
+        CarPart carPart = carPartRepository.findById(id)
+                .orElseThrow(ResourceNotFoundException::new);
+        int size = carPart.removeAllSalesArguments();
+        carPartRepository.save(carPart);
+
+        return size;
     }
 
 }

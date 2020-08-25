@@ -15,7 +15,7 @@ import static com.task.interview.sst.fis.constants.ModelConstants.MODEL_PRODUCTI
 import static com.task.interview.sst.fis.constants.ModelConstants.MODEL_PRODUCTION_START_DATE;
 
 @Component
-public class YearInit implements EntityInit {
+public class YearInit implements EntityInitCommand {
 
     private final YearRepository yearRepository;
 

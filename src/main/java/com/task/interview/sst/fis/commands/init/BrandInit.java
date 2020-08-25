@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Component
-public class BrandInit implements EntityInit {
+public class BrandInit implements EntityInitCommand {
 
     private final BrandRepository brandRepository;
 

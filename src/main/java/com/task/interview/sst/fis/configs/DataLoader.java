@@ -1,6 +1,6 @@
 package com.task.interview.sst.fis.configs;
 
-import com.task.interview.sst.fis.commands.init.EntityInit;
+import com.task.interview.sst.fis.commands.init.EntityInitCommand;
 import com.task.interview.sst.fis.commands.init.factory.EntityInitFactory;
 import com.task.interview.sst.fis.entities.Brand;
 import com.task.interview.sst.fis.enums.CarBrand;
@@ -12,7 +12,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import static com.task.interview.sst.fis.commands.init.enums.EntityInitStep.*;
 
@@ -20,7 +22,7 @@ import static com.task.interview.sst.fis.commands.init.enums.EntityInitStep.*;
 @Component
 public class DataLoader implements ApplicationRunner {
 
-    private Map<Integer, EntityInit> entityInitMap;
+    private Map<Integer, EntityInitCommand> entityInitMap;
 
     private final EntityInitFactory entityInitFactory;
     private final BrandRepository brandRepository;
@@ -51,7 +53,7 @@ public class DataLoader implements ApplicationRunner {
 
         if (CollectionUtils.isEmpty(brands)) {
             entityInitMap.values()
-                    .forEach(EntityInit::execute);
+                    .forEach(EntityInitCommand::execute);
         }
     }
 

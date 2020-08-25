@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class SalesArgumentInit implements EntityInit {
+public class SalesArgumentInit implements EntityInitCommand {
 
     private static final List<String> SALES_ARGUMENT_NAMES;
 

@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class ServiceActionNameInit implements EntityInit {
+public class ServiceActionNameInit implements EntityInitCommand {
 
     private static List<String> SERVICE_ACTION_NAMES;
 

@@ -23,4 +23,8 @@ public class SalesArgument {
     @ManyToMany(mappedBy = "salesArguments")
     private Set<CarPart> carParts;
 
+    public void removeCarPart(CarPart carPart) {
+        this.getCarParts().remove(carPart);
+    }
+
 }

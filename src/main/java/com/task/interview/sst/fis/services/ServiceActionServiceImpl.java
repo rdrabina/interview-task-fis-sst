@@ -31,12 +31,13 @@ public class ServiceActionServiceImpl implements ServiceActionService {
     }
 
     private ServiceActionDto createServiceActionDto(ServiceAction serviceAction) {
-        return ServiceActionDto.builder()
-                .name(serviceAction.getServiceActionNameValue())
-                .carPartName(serviceAction.getCarPartName())
-                .startDate(serviceAction.getStartDate())
-                .endDate(serviceAction.getEndDate())
-                .build();
+        return ServiceActionDto.createServiceActionDto(serviceAction);
+    }
+
+    @Override
+    @Transactional
+    public ServiceAction save(ServiceAction serviceAction) {
+        return serviceActionRepository.save(serviceAction);
     }
 
 }
