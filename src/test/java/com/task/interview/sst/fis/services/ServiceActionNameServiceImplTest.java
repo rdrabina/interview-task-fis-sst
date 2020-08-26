@@ -8,6 +8,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.Optional;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -29,6 +31,17 @@ public class ServiceActionNameServiceImplTest {
         serviceActionNameService.save(serviceActionName);
 
         verify(serviceActionNameRepository, times(1)).save(serviceActionName);
+    }
+
+    @Test
+    public void findByName() {
+        ServiceActionName serviceActionName = new ServiceActionName();
+        when(serviceActionNameRepository.findByValue(anyString()))
+                .thenReturn(Optional.of(serviceActionName));
+
+        Optional<ServiceActionName> foundByName = serviceActionNameService.findByName("service action name test");
+
+        verify(serviceActionNameRepository, times(1)).findByValue("service action name test");
     }
 
 }

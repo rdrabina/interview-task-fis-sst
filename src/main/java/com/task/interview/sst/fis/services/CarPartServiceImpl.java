@@ -107,7 +107,9 @@ public class CarPartServiceImpl implements CarPartService {
     public void addServiceAction(Long id, ServiceActionDto serviceActionDto) {
         CarPart carPart = carPartRepository.findById(id)
                 .orElseThrow(ResourceNotFoundException::new);
-        ServiceActionName serviceActionName = createServiceActionName(serviceActionDto);
+        ServiceActionName serviceActionName = serviceActionNameService.findByName(serviceActionDto.getName())
+                .orElseGet(() -> createServiceActionName(serviceActionDto));
+
         ServiceAction serviceAction = createServiceAction(carPart, serviceActionName, serviceActionDto);
 
         save(carPart, serviceAction, serviceActionName);

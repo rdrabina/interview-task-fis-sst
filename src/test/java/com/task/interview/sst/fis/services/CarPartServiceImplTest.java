@@ -98,6 +98,24 @@ public class CarPartServiceImplTest {
                 .thenReturn(
                         Optional.of(createCarPartList().get(0))
                 );
+        when(serviceActionNameService.findByName(anyString()))
+                .thenReturn(Optional.of(new ServiceActionName()));
+
+        carPartService.addServiceAction(1L, createServiceActionDto());
+
+        verify(serviceActionNameService, times(1)).save(any(ServiceActionName.class));
+        verify(serviceActionService, times(1)).save(any(ServiceAction.class));
+        verify(carPartRepository, times(1)).save(any(CarPart.class));
+    }
+
+    @Test
+    public void addServiceActionWithNonExistingName() {
+        when(carPartRepository.findById(anyLong()))
+                .thenReturn(
+                        Optional.of(createCarPartList().get(0))
+                );
+        when(serviceActionNameService.findByName(anyString()))
+                .thenReturn(Optional.empty());
 
         carPartService.addServiceAction(1L, createServiceActionDto());
 

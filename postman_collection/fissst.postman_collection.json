@@ -1,0 +1,243 @@
+{
+	"info": {
+		"_postman_id": "1da9aeee-50c1-488a-b2df-7848dd7770d7",
+		"name": "fissst",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get all car parts grouped by brand and model",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/v1/car-parts/grouped-by-brand-and-model",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"v1",
+						"car-parts",
+						"grouped-by-brand-and-model"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "check car part availability",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/v1/car-parts/46/availability",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"v1",
+						"car-parts",
+						"46",
+						"availability"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all service actions between dates",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/v1/service-actions/2019-06-15/2020-07-01",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"v1",
+						"service-actions",
+						"2019-06-15",
+						"2020-07-01"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all car parts filter by name or description",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/v1/car-parts/grouped-by-brand-and-model/dren will",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"v1",
+						"car-parts",
+						"grouped-by-brand-and-model",
+						"dren will"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get brand with details by name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/v1/car-parts/grouped-by-brand-and-model/lusdasd",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"v1",
+						"car-parts",
+						"grouped-by-brand-and-model",
+						"lusdasd"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "modify car part description",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\": \"New description changed manually.\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/v1/car-parts/45",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"v1",
+						"car-parts",
+						"45"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "modify car part description Copy",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"New car part added manually. test\",\r\n    \"startDate\": \"2020-01-23\",\r\n    \"endDate\": \"2020-12-07\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/v1/car-parts/47/service-actions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"v1",
+						"car-parts",
+						"47",
+						"service-actions"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete all car part salles arguments",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"New car part added manually.\",\r\n    \"startDate\": \"2020-01-23\",\r\n    \"endDate\": \"2020-12-07\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8081/api/v1/car-parts/60/sales-arguments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"v1",
+						"car-parts",
+						"60",
+						"sales-arguments"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 public class ServiceActionNameServiceImpl implements ServiceActionNameService {
 
@@ -22,6 +24,13 @@ public class ServiceActionNameServiceImpl implements ServiceActionNameService {
     @Logger
     public ServiceActionName save(ServiceActionName serviceActionName) {
         return serviceActionNameRepository.save(serviceActionName);
+    }
+
+    @Override
+    @Transactional
+    @Logger
+    public Optional<ServiceActionName> findByName(String name) {
+        return serviceActionNameRepository.findByValue(name);
     }
 
 }
