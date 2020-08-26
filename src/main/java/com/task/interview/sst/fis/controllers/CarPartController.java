@@ -14,7 +14,6 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/api/v1/car-parts")
-@CrossOrigin("*")
 public class CarPartController {
 
     private final CarPartService carPartService;
