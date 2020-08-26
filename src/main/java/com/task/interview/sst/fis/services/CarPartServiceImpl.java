@@ -15,6 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static com.task.interview.sst.fis.utils.DateUtils.addDaysToDate;
+
 @Service
 public class CarPartServiceImpl implements CarPartService {
 
@@ -89,16 +91,7 @@ public class CarPartServiceImpl implements CarPartService {
     private CarPartAvailabilityDto createCarPartAvailabilityDto(CarPart carPart) {
         CarPartDetails carPartDetails = carPart.getCarPartDetails();
 
-        return new CarPartAvailabilityDto(carPartDetails.isOnStock(), createPossibleShipmentDate(carPartDetails));
-    }
-
-    private Date createPossibleShipmentDate(CarPartDetails carPartDetails) {
-        Date date = new Date();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        calendar.add(Calendar.DATE, carPartDetails.getShipmentWithinDays());
-
-        return calendar.getTime();
+        return new CarPartAvailabilityDto(carPartDetails.isOnStock(), addDaysToDate(carPartDetails.getShipmentWithinDays()));
     }
 
     @Override
@@ -112,7 +105,8 @@ public class CarPartServiceImpl implements CarPartService {
     @Transactional
     @Logger
     public void addServiceAction(Long id, ServiceActionDto serviceActionDto) {
-        CarPart carPart = carPartRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
+        CarPart carPart = carPartRepository.findById(id)
+                .orElseThrow(ResourceNotFoundException::new);
         ServiceActionName serviceActionName = createServiceActionName(serviceActionDto);
         ServiceAction serviceAction = createServiceAction(carPart, serviceActionName, serviceActionDto);
 

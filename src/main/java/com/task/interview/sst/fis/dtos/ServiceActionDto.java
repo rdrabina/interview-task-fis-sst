@@ -2,6 +2,7 @@ package com.task.interview.sst.fis.dtos;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.task.interview.sst.fis.entities.ServiceAction;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
+@EqualsAndHashCode
 public class ServiceActionDto {
 
     String name;

@@ -27,7 +27,7 @@ public class LoggerAspect {
         LOGGER.info(
                 "Entering method: "
                         + method.getName()
-                        + " with arguments: "
+                        + "() method with arguments: "
                         + Arrays.toString(joinPoint.getArgs())
         );
     }

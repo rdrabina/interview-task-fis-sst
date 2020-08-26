@@ -19,20 +19,7 @@ public class ControllerExceptionAdivce {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-//        if (ex instanceof SnapshotException) {
-//            SnapshotException snapshotException = (SnapshotException) ex;
-//            errorResponse.setErrorCode(snapshotException.getErrorCode());
-//            errorResponse.setErrorMessage(snapshotException.getErrorMessage());
-//            return new ResponseEntity<>(errorResponse, HttpStatus.EXPECTATION_FAILED);
-//        } else if (ex instanceof HttpMediaTypeNotSupportedException) {
-//            errorResponse.setErrorCode("RT002");
-//            return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
-//        } else {
-//            logger.error("Exception in handleControllerException, and Message is: {0}", ex);
-//            errorResponse.setErrorCode("RT001");
-//            return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }
