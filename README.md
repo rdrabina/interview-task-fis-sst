@@ -19,3 +19,17 @@ https://automotive-store.herokuapp.com/actuator
 5. git commit -m "commit message"
 6. git push heroku master
 7. heroku logs -t
+
+### Example of using the swagger
+- /api/v1/brands/{name}
+<br> available brand names: AUDI, BMW, VOLKSWAGEN
+- /api/v1/car-parts/{id}
+<br> car-parts id range: 44-63
+- /api/v1/car-parts/{id}/availability
+- /api/v1/car-parts/{id}/sales-arguments
+- /api/v1/car-parts/{id}/service-actions
+- /api/v1/car-parts/grouped-by-brand-and-model
+- /api/v1/car-parts/grouped-by-brand-and-model/{car-part-name-description-filter}
+<br> e.g. car, this
+- /api/v1/service-actions/{start-date}/{end-date}
+<br> start date and end date in format: yyyy-MM-dd, e.g. 2020-08-27
