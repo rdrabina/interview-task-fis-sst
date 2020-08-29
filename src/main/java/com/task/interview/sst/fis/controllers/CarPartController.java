@@ -24,18 +24,10 @@ public class CarPartController {
     }
 
     @GetMapping("/grouped-by-brand-and-model")
-    public ResponseEntity<Map<String, Map<String, Set<CarPartDto>>>> getAllGroupedByBrandAndModel() {
+    public ResponseEntity<Map<String, Map<String, Set<CarPartDto>>>> getAllGroupedByBrandAndModel(
+            @RequestParam(required = false, defaultValue = "") String carPartNameDescriptionFilter) {
         return new ResponseEntity<>(
-                carPartService.getAllGroupedByBrandAndModel(),
-                HttpStatus.OK
-        );
-    }
-
-    @GetMapping("/grouped-by-brand-and-model/{car-part-name-description-filter}")
-    public ResponseEntity<Map<String, Map<String, Set<CarPartDto>>>> getAllGroupedByBrandAndModelWithFilter(
-            @PathVariable("car-part-name-description-filter") String carPartNameDescriptionFilter) {
-        return new ResponseEntity<>(
-                carPartService.getAllGroupedByBrandAndModelWithFilter(carPartNameDescriptionFilter),
+                carPartService.getAllGroupedByBrandAndModel(carPartNameDescriptionFilter),
                 HttpStatus.OK
         );
     }

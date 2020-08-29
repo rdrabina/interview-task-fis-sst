@@ -83,4 +83,11 @@ public class ObjectFactory {
         return serviceActionDto;
     }
 
+    public static ServiceActionName createServiceActionName() {
+        ServiceActionName serviceActionName = new ServiceActionName();
+        serviceActionName.setServiceActions(new ArrayList<>());
+
+        return serviceActionName;
+    }
+
 }

@@ -29,12 +29,12 @@ public class BrandServiceImplTest {
 
     @Test
     public void getBrandByNameWithModelsAndCarParts() {
-        when(brandRepository.findAllByName(anyString()))
+        when(brandRepository.findAllByNameIgnoreCase(anyString()))
                 .thenReturn(createBrandList());
 
         Map<String, Map<String, Set<CarPartDto>>> brandNameTest = brandService.getBrandByNameWithModelsAndCarParts("brand name test");
 
-        verify(brandRepository, times(1)).findAllByName("brand name test");
+        verify(brandRepository, times(1)).findAllByNameIgnoreCase("brand name test");
         Assertions.assertEquals(brandNameTest, createGroupedByBrandAndModelMap());
     }
 

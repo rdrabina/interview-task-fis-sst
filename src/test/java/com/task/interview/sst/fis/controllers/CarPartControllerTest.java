@@ -46,7 +46,7 @@ public class CarPartControllerTest {
 
     @Test
     public void getAllGroupedByBrandAndModel() throws Exception {
-        when(carPartService.getAllGroupedByBrandAndModel())
+        when(carPartService.getAllGroupedByBrandAndModel(anyString()))
                 .thenReturn(new HashMap<>());
 
         mockMvc.perform(
@@ -54,21 +54,21 @@ public class CarPartControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(status().isOk());
 
-        verify(carPartService, times(1)).getAllGroupedByBrandAndModel();
+        verify(carPartService, times(1)).getAllGroupedByBrandAndModel("");
     }
 
     @Test
     public void getAllGroupedByBrandAndModelWithFilter() throws Exception {
-        when(carPartService.getAllGroupedByBrandAndModelWithFilter(anyString()))
+        when(carPartService.getAllGroupedByBrandAndModel(anyString()))
                 .thenReturn(new HashMap<>());
 
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/api/v1/car-parts/grouped-by-brand-and-model/{car-part-name-description-filter}",
-                        "car")
+                MockMvcRequestBuilders.get("/api/v1/car-parts/grouped-by-brand-and-model")
+                        .param("carPartNameDescriptionFilter", "filter")
                         .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(status().isOk());
 
-        verify(carPartService, times(1)).getAllGroupedByBrandAndModelWithFilter(anyString());
+        verify(carPartService, times(1)).getAllGroupedByBrandAndModel("filter");
     }
 
     @Test

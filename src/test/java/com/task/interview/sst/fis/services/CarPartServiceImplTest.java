@@ -36,24 +36,15 @@ public class CarPartServiceImplTest {
 
     @Test
     public void getAllGroupedByBrandAndModel() {
-        when(carPartRepository.findAll()).thenReturn(createCarPartList());
+        when(carPartRepository.findAllByCarPartDetailsNameContainingIgnoreCaseOrCarPartDetailsDescriptionContainingIgnoreCase(
+                anyString(), anyString())
+        ).thenReturn(createCarPartList());
 
-        Map<String, Map<String, Set<CarPartDto>>> allGroupedByBrandAndModel = carPartService.getAllGroupedByBrandAndModel();
-
-        verify(carPartRepository, times(1)).findAll();
-        Assertions.assertEquals(allGroupedByBrandAndModel, createGroupedByBrandAndModelMap());
-    }
-
-    @Test
-    public void getAllGroupedByBrandAndModelWithFilterByName() {
-        when(carPartRepository.findAllByCarPartDetailsNameContainingIgnoreCaseOrCarPartDetailsDescriptionContainingIgnoreCase(anyString(), anyString()))
-                .thenReturn(createCarPartList());
-
-        Map<String, Map<String, Set<CarPartDto>>> allGroupedByBrandAndModelAndFilter = carPartService.getAllGroupedByBrandAndModelWithFilter("nameOrDescription");
+        Map<String, Map<String, Set<CarPartDto>>> allGroupedByBrandAndModel = carPartService.getAllGroupedByBrandAndModel("filter");
 
         verify(carPartRepository, times(1))
-                .findAllByCarPartDetailsNameContainingIgnoreCaseOrCarPartDetailsDescriptionContainingIgnoreCase("nameOrDescription", "nameOrDescription");
-        Assertions.assertEquals(allGroupedByBrandAndModelAndFilter, createGroupedByBrandAndModelMap());
+                .findAllByCarPartDetailsNameContainingIgnoreCaseOrCarPartDetailsDescriptionContainingIgnoreCase("filter", "filter");
+        Assertions.assertEquals(allGroupedByBrandAndModel, createGroupedByBrandAndModelMap());
     }
 
     @Test
@@ -99,7 +90,7 @@ public class CarPartServiceImplTest {
                         Optional.of(createCarPartList().get(0))
                 );
         when(serviceActionNameService.findByName(anyString()))
-                .thenReturn(Optional.of(new ServiceActionName()));
+                .thenReturn(Optional.of(createServiceActionName()));
 
         carPartService.addServiceAction(1L, createServiceActionDto());
 

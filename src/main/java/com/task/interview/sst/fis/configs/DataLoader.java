@@ -49,7 +49,7 @@ public class DataLoader implements ApplicationRunner {
     @Override
     @Transactional
     public void run(ApplicationArguments args) {
-        List<Brand> brands = brandRepository.findAllByName(CarBrand.AUDI.name());
+        List<Brand> brands = brandRepository.findAllByNameIgnoreCase(CarBrand.AUDI.name());
 
         if (CollectionUtils.isEmpty(brands)) {
             entityInitMap.values()

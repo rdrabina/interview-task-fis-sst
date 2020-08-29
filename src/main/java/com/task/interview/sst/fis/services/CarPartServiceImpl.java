@@ -36,8 +36,12 @@ public class CarPartServiceImpl implements CarPartService {
     @Override
     @Transactional
     @Logger
-    public Map<String, Map<String, Set<CarPartDto>>> getAllGroupedByBrandAndModel() {
-        return groupCarPartsByBrandAndModel(carPartRepository.findAll());
+    public Map<String, Map<String, Set<CarPartDto>>> getAllGroupedByBrandAndModel(String carPartNameDescriptionFilter) {
+        return groupCarPartsByBrandAndModel(
+                carPartRepository.findAllByCarPartDetailsNameContainingIgnoreCaseOrCarPartDetailsDescriptionContainingIgnoreCase(
+                        carPartNameDescriptionFilter, carPartNameDescriptionFilter
+                )
+        );
     }
 
     private Map<String, Map<String, Set<CarPartDto>>> groupCarPartsByBrandAndModel(List<CarPart> carParts) {
@@ -66,17 +70,6 @@ public class CarPartServiceImpl implements CarPartService {
                 .model(model.getName())
                 .carPartDto(CarPartDto.createCarPartDto(carPart))
                 .build();
-    }
-
-    @Override
-    @Transactional
-    @Logger
-    public Map<String, Map<String, Set<CarPartDto>>> getAllGroupedByBrandAndModelWithFilter(String carPartNameDescriptionFilter) {
-        return groupCarPartsByBrandAndModel(
-                carPartRepository.findAllByCarPartDetailsNameContainingIgnoreCaseOrCarPartDetailsDescriptionContainingIgnoreCase(
-                        carPartNameDescriptionFilter, carPartNameDescriptionFilter
-                )
-        );
     }
 
     @Override

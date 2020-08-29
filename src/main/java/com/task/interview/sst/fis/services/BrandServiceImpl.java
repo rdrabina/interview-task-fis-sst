@@ -30,7 +30,7 @@ public class BrandServiceImpl implements BrandService {
     @Transactional
     @Logger
     public Map<String, Map<String, Set<CarPartDto>>> getBrandByNameWithModelsAndCarParts(String name) {
-        return brandRepository.findAllByName(name)
+        return brandRepository.findAllByNameIgnoreCase(name)
                 .stream()
                 .map(this::createBrandModelCarPartDtos)
                 .flatMap(Collection::stream)
